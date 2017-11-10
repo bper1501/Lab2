@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <title>Movie Ratings</title>
+        <style>
+        
+            h1{
+                ;
+            }
+            body{
+                
+                background-color: #55d6aa;
+            }
+            #image {
+                margin: auto;
+                display: block;
+                border-radius: 10px;
+                margin-top: 100px;
+                
+            }
+            #search {
+                text-align: center;
+                width: 300px;
+                height: 50px;
+                border-radius: 10px:               
+                background-color: green; 
+                border: none;
+                color: black;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+            }
+            #button{
+                text-align: center;
+                
+            }
+    
+        
+        
+        </style>
+        
+		<meta charset="UTF-8">
+		<meta name="description" content="Class Example Layout">
+		<meta name="keywords" content="HTML,CSS, Class Example">
+		<meta name="author" content="CWEB1010">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="style3.css">
+		<link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+            
+    </head>    
+        <body>
+        <img id="image" src="moviesBackground.jpg" width="1400" height="500" align="middle">
+        <h1>Top Movies</h1>
+        <h2>Have You Seen Any of These Top Rated Movies? </h2>
+                <div id="button">                    
+                    <button id="search">Get Top Rated Movies</button>
+                </div>
+                
+                <div id="movie"> </div>
+
+        <script>
+        var movieContainer = document.getElementById("movie");
+        
+       
+        var search = document.getElementById("search");
+        search.addEventListener("click", function(){
+        
+            var myRequest = new XMLHttpRequest();
+                myRequest.open('GET', 'https://api.themoviedb.org/3/movie/top_rated?api_key=26a0c335188ac1ac73cf512737862e9a');
+                myRequest.onload = function() {
+            var myData =(JSON.parse(myRequest.responseText));
+                (myData = (myData.results));
+                renderHtml(myData);
+    
+                };
+            myRequest.send();
+            
+        });
+        
+        function renderHtml(myData){
+            var htmlString = "";
+            
+            
+            for (i=0; i < myData.length; i++){
+                htmlString += "<p>"  + myData[i].title + " has a rate of " + myData[i].vote_average + ".</p>";
+                
+            }
+            
+            movieContainer.insertAdjacentHTML('beforeend', htmlString);
+        
+        }
+        
+       
+        
+        
+        
+        
+        </script>
+
+        
+        
+    </body>
+</html>
